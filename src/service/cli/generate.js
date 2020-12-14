@@ -4,24 +4,22 @@ const fs = require(`fs`);
 const {CATEGORIES,
   SENTENCES,
   TITLES,
-  OfferType,
-  SumRestrict,
   DEFAULT_COUNT,
-  PictureRestrict,
   FILE_NAME,
   ExitCode: {success, exit}} = require(`../constants`);
-const {getRandomInt,
-  getPictureFileName,
-  shuffle} = require(`../utils`);
+const {
+  getRandomInt,
+  generateDateCreated,
+  shuffle
+} = require(`../utils`);
 
 const generateOffers = (count) => (
   Array(count).fill({}).map(() => ({
-    category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
-    description: shuffle(SENTENCES).slice(1, 5).join(` `),
-    picture: getPictureFileName(getRandomInt(PictureRestrict.MIN, PictureRestrict.MAX)),
+    category: shuffle(CATEGORIES).slice(0, 3),
+    announce: shuffle(SENTENCES).slice(1, 5).join(` `),
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
-    type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
-    sum: getRandomInt(SumRestrict.MIN, SumRestrict.MAX),
+    fullText: shuffle(SENTENCES).slice(1, 7).join(` `),
+    createdDate: generateDateCreated(),
   }))
 );
 

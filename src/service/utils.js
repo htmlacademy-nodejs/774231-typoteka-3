@@ -15,12 +15,17 @@ const shuffle = (someArray) => {
   return someArray;
 };
 
-const getPictureFileName = (number) => {
-  return `item${number < 10 ? `0` + number : number}.jpg`;
+const generateDateCreated = () => {
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth();
+
+  return new Date(currentYear, currentMonth, getRandomInt(1, 31)).toISOString().split(`T`).join(` `).split(`.`)[0];
+
 };
 
 module.exports = {
   getRandomInt,
   shuffle,
-  getPictureFileName,
+  generateDateCreated,
 };
