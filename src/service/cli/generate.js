@@ -43,6 +43,7 @@ module.exports = {
       }
 
       console.info(`Operation success. File created.`);
+      console.log(`Задание готово!`);
       process.exit(ExitCode.SUCCESS);
     });
   }
