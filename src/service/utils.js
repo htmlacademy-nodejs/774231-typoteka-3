@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require(`fs`).promises;
+
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -15,6 +17,18 @@ const shuffle = (someArray) => {
   return someArray;
 };
 
+const readFileByPath = async (path, dataFormatter = (data) => data) => {
+  return dataFormatter(await fs.readFile(path, `utf8`));
+};
+
+const dataFormatter = (data) => {
+  return data.split(`\n`);
+};
+
+const getData = async (path) => {
+  return await readFileByPath(path, dataFormatter);
+};
+
 const generateDateCreated = () => {
   const date = new Date();
   const currentYear = date.getFullYear();
@@ -27,5 +41,6 @@ const generateDateCreated = () => {
 module.exports = {
   getRandomInt,
   shuffle,
+  getData,
   generateDateCreated,
 };
