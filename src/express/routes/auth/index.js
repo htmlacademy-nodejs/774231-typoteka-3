@@ -6,11 +6,11 @@ const loginRouter = new Router();
 const registerRouter = new Router();
 
 loginRouter.get(`/`, (req, res) => {
-  res.send(req.originalUrl);
+  res.render(`sign-up`);
 });
 
 registerRouter.get(`/`, (req, res) => {
-  res.send(req.originalUrl);
+  res.render(`sign-up`);
 });
 
 module.exports = {
