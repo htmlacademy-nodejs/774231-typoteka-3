@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require(`express`);
-const PORT = 8080;
+const path = require(`path`);
 const {loginRouter, registerRouter} = require(`./routes/auth`);
 const {myRouter} = require(`./routes/my`);
 const {searchRouter} = require(`./routes/search`);
@@ -10,12 +10,20 @@ const {categoriesRouter} = require(`./routes/categories`);
 
 const app = express();
 
+const PUBLIC_DIR = `public`;
+const PORT = 8080;
+
+app.set(`views`, path.resolve(__dirname, `templates`));
+app.set(`view engine`, `pug`);
+
 app.use(`/`, myRouter);
 app.use(`/login`, loginRouter);
 app.use(`/register`, registerRouter);
 app.use(`/search`, searchRouter);
 app.use(`/articles`, articlesRouter);
 app.use(`/categories`, categoriesRouter);
+
+app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
 
 app.listen(PORT, () => {
   console.log(`Server listen on port ${PORT}`);
