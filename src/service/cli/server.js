@@ -1,9 +1,9 @@
 'use strict';
 
-const {DEFAULT_PORT, HttpCode, FILE_NAME} = require(`../constants`);
+const {DEFAULT_PORT, HttpCode, API_PREFIX} = require(`../constants`);
+const {appRouter} = require(`../api`);
 const express = require(`express`);
 const chalk = require(`chalk`);
-const fs = require(`fs`).promises;
 
 module.exports = {
   name: `--server`,
@@ -12,19 +12,8 @@ module.exports = {
     const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
 
     const app = express();
-    const router = new express.Router();
 
-    router.get(`/`, async (_, res) => {
-      try {
-        const fileContent = await fs.readFile(FILE_NAME);
-        const mocks = JSON.parse(fileContent);
-        res.json(mocks);
-      } catch (err) {
-        res.status(HttpCode.INTERNAL_SERVER_ERROR).send(err.message);
-      }
-    });
-
-    app.use(`/posts`, router);
+    app.use(API_PREFIX, appRouter);
 
     app.use((_, res) => res
        .status(HttpCode.NOT_FOUND)
