@@ -13,6 +13,7 @@ module.exports = {
         Команды:
         --version:            выводит номер версии
         --help:               печатает этот текст
+        --server: <port>      запускает api сервер
         --generate <count>    формирует файл mocks.json`));
   }
 };
