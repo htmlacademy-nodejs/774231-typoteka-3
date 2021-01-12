@@ -34,7 +34,14 @@ class ArticlesService {
   }
 
   deleteOne(id) {
+    const deletedPost = this._posts.find((post) => post.id === id);
+
+    if (!deletedPost) {
+      return null;
+    }
+
     this._posts = this._posts.filter((post) => post.id !== id);
+    return deletedPost;
   }
 
   create(post) {
