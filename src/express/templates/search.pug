@@ -6,7 +6,15 @@ block content
       .search-page__wrapper
         h1 Поиск
         .search.search-page__form
-          form(action='#' method='get')
+          form(action='/search' method='get')
             label
-              input(type='text' placeholder='Что ищем?')
+              input(type='text' placeholder='Что ищем?' name="query")
             button.search__button.button.button--transparent(type='submit') Найти
+          if results
+            each item in results
+              .search__result
+                time.search__date(datetime='2019-03-21T20:33') #{item.createdDate}
+                a.search__link(href=`/articles/${item.id}`) #{item.title}
+          if isEmpty
+            p(style="text-align: center; font-size: 20px; font-weight: 500")
+              | По вашему запросу ничего не найдено :(

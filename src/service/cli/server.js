@@ -15,6 +15,9 @@ module.exports = {
 
     const app = express();
 
+    app.use(express.json());
+    app.use(express.urlencoded({extended: true}));
+
     app.use(API_PREFIX, appRouter);
 
     app.use((req, res, next) => {

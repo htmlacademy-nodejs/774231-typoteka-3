@@ -14,6 +14,7 @@ node_modules/
 
 # Папка с собранными файлами проекта
 build/
+upload/
 
 # Моковые данные
 mocks.json
