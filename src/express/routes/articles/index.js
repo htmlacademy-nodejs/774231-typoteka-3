@@ -4,6 +4,7 @@ const {Router} = require(`express`);
 const {InstanceHttpApiService} = require(`../../lib/http-service`);
 const {storage} = require(`../../lib/upload-storage`);
 const multer = require(`multer`);
+const url = require(`url`);
 
 const articlesRouter = new Router();
 const upload = multer({storage});
@@ -13,7 +14,7 @@ articlesRouter.get(`/category/:id`, (req, res) => {
 });
 
 articlesRouter.get(`/add`, (req, res) => {
-  res.render(`new-post`, {formData: {}});
+  res.render(`new-post`, {formData: {...req.query}});
 });
 
 articlesRouter.post(`/add`, upload.single(`avatar`), async (req, res) => {
@@ -32,7 +33,12 @@ articlesRouter.post(`/add`, upload.single(`avatar`), async (req, res) => {
     res.redirect(`/my`);
   } catch (err) {
     console.log(`POST /articles/add: `, err);
-    res.render(`new-post`, {formData: {...body}});
+    res.redirect(url.format({
+      pathname: `/articles/add`,
+      query: {
+        ...body,
+      }
+    }));
   }
 });
 
